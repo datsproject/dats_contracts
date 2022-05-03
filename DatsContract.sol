@@ -169,6 +169,57 @@ contract DatsContract{
         delete(cybers[msg.sender]);
     }
 
+    function getCyberSecurity() external view returns(CyberSecurity memory){
+        return cybers[msg.sender];
+    }
+
+    function getCyberSecurityCount() external view returns(uint256){
+        return cyberUsers.length;
+    }
+
+    function saveVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) external{
+        Vulnerability memory vulnerability = Vulnerability({
+            id: vulnerabilityUsers.length + 1,
+            isApprove: _isApprove,
+            webPenetration: _webPenetration,
+            serverPenetration: _serverPenetration,
+            scadaPenetration: _scadaPenetration,
+            blockchainPenetration: _blockchainPenetration,
+            contractPenetration: _contractPenetration
+        });
+
+        vulnerabilities[msg.sender] = vulnerability;
+        vulnerabilityUsers.push(msg.sender);
+    }
+
+    function updateVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) external{
+        Vulnerability memory vulnerability = vulnerabilities[msg.sender];
+        vulnerability.isApprove = _isApprove;
+        vulnerability.webPenetration = _webPenetration;
+        vulnerability.serverPenetration = _serverPenetration;
+        vulnerability.scadaPenetration = _scadaPenetration;
+        vulnerability.blockchainPenetration = _blockchainPenetration;
+        vulnerability.contractPenetration = _contractPenetration;
+
+        vulnerabilities[msg.sender] = vulnerability;
+    }
+
+    function deleteVulnerability() external {
+        delete(vulnerabilities[msg.sender]);
+    }
+
+    /**
+         struct Vulnerability {
+        uint256 id;
+        bool isApprove;
+        bool webPenetration;
+        bool serverPenetration;
+        bool scadaPenetration;
+        bool blockchainPenetration;
+        bool contractPenetration;
+    }
+     */
+
     modifier isDDosExistsByUser(address _user) {
         require(ddoses[_user].id == 0, "Ddos already saved for this user");
         _;
