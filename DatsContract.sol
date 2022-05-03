@@ -116,6 +116,18 @@ contract DatsContract{
         superUsers.push(msg.sender);
     }
 
+    function updateSuperComputer(bool _isApprove, uint8 _cpuValue) external {
+        SuperComputer memory superComputer = supers[msg.sender];
+        superComputer.isApprove = _isApprove;
+        superComputer.cpuValue = _cpuValue;
+
+        supers[msg.sender] = superComputer;
+    }
+
+    function deleteSuperComputer() external {
+        delete(supers[msg.sender]);
+    }
+
     function getSuperComputer() external view returns (SuperComputer memory) {
         return supers[msg.sender];
     }
