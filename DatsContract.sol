@@ -127,6 +127,20 @@ contract DatsContract{
     function getSuperComputerCount() external view returns(uint256) {
         return superUsers.length;
     }
+    
+    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external {
+        CyberSecurity memory cyberSecurity = CyberSecurity({
+            id: cyberUsers.length + 1,
+            isApprove: _isApprove,
+            webSecurity: _webSecurity,
+            serverSecurity: _serverSecurity,
+            ransomwareResearch: _ransomwareResearch,
+            malwareResearch: _malwareResearch
+        });
+
+        cybers[msg.sender] = cyberSecurity;
+        cyberUsers.push(msg.sender);
+    }
 
     modifier isDDosExistsByUser(address _user) {
         require(ddoses[_user].id == 0, "Ddos already saved for this user");
