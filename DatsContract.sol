@@ -267,4 +267,9 @@ contract DatsContract{
         _;
     }
 
+    modifier isBlockchainExistsByUser(address _user){
+        require(blockchains[_user].id == 0, "Blockchain already saved for this user.");
+        _;
+    }
+
 }
