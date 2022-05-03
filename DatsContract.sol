@@ -140,7 +140,7 @@ contract DatsContract{
         return superUsers.length;
     }
     
-    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external {
+    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external{
         CyberSecurity memory cyberSecurity = CyberSecurity({
             id: cyberUsers.length + 1,
             isApprove: _isApprove,
@@ -152,6 +152,21 @@ contract DatsContract{
 
         cybers[msg.sender] = cyberSecurity;
         cyberUsers.push(msg.sender);
+    }
+
+    function updateCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external{
+        CyberSecurity memory cyberSecurity = cybers[msg.sender];
+        cyberSecurity.isApprove = _isApprove;
+        cyberSecurity.webSecurity = _webSecurity;
+        cyberSecurity.serverSecurity = _serverSecurity;
+        cyberSecurity.ransomwareResearch = _ransomwareResearch;
+        cyberSecurity.malwareResearch = _malwareResearch;
+
+        cybers[msg.sender] = cyberSecurity;
+    }
+
+    function deleteCyberSecurity() external{
+        delete(cybers[msg.sender]);
     }
 
     modifier isDDosExistsByUser(address _user) {
