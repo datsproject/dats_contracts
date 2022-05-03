@@ -105,7 +105,7 @@ contract DatsContract{
         return ddosUsers.length;
     }
 
-    function saveSuperComputer(bool _isApprove, uint8 _cpuValue) external {
+    function saveSuperComputer(bool _isApprove, uint8 _cpuValue) isSuperComputerExistsByUser(msg.sender) external {
         SuperComputer memory superComputer = SuperComputer({
             id: superUsers.length + 1,
             isApprove: _isApprove,
@@ -140,7 +140,7 @@ contract DatsContract{
         return superUsers.length;
     }
     
-    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external{
+    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) isCyberSecurityExistsByUser(msg.sender) external{
         CyberSecurity memory cyberSecurity = CyberSecurity({
             id: cyberUsers.length + 1,
             isApprove: _isApprove,
@@ -177,7 +177,7 @@ contract DatsContract{
         return cyberUsers.length;
     }
 
-    function saveVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) external{
+    function saveVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) isVulnerabilityExistsByUser(msg.sender) external{
         Vulnerability memory vulnerability = Vulnerability({
             id: vulnerabilityUsers.length + 1,
             isApprove: _isApprove,
@@ -216,7 +216,7 @@ contract DatsContract{
         return vulnerabilityUsers.length;
     }
 
-    function saveBlockchain(bool _approveAttackPrevention) external{
+    function saveBlockchain(bool _approveAttackPrevention) isBlockchainExistsByUser(msg.sender) external{
         Blockchain memory blockchain = Blockchain({
             id: blockchainUsers.length + 1,
             approveAttackPrevention: _approveAttackPrevention
