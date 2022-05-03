@@ -247,18 +247,23 @@ contract DatsContract{
 
     // ####################### MODIFIERS ####################################
 
-    modifier isDDosExistsByUser(address _user) {
+    modifier isDDosExistsByUser(address _user){
         require(ddoses[_user].id == 0, "Ddos already saved for this user.");
         _;
     }
 
-    modifier isSuperComputerExistsByUser(address _user) {
+    modifier isSuperComputerExistsByUser(address _user){
         require(supers[_user].id == 0, "SuperComputer already saved for this user.");
         _;
     }
 
     modifier isCyberSecurityExistsByUser(address _user){
         require(cybers[_user].id == 0, "CyberSecurity already saved for this user.");
+        _;
+    }
+
+    modifier isVulnerabilityExistsByUser(address _user){
+        require(vulnerabilities[_user].id == 0, "Vulnerability already saved for this user.");
         _;
     }
 
