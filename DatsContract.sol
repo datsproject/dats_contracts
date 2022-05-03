@@ -233,6 +233,18 @@ contract DatsContract{
         blockchains[msg.sender] = blockchain;
     }
 
+    function deleteBlockchain() external{
+        delete(blockchains[msg.sender]);
+    }
+
+    function getBlockchain() external view returns(Blockchain memory){
+        return blockchains[msg.sender];
+    }
+
+    function getBlockchainCount() external view returns(uint256){
+        return blockchainUsers.length;
+    }
+
     modifier isDDosExistsByUser(address _user) {
         require(ddoses[_user].id == 0, "Ddos already saved for this user");
         _;
