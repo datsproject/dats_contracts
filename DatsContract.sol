@@ -208,17 +208,9 @@ contract DatsContract{
         delete(vulnerabilities[msg.sender]);
     }
 
-    /**
-         struct Vulnerability {
-        uint256 id;
-        bool isApprove;
-        bool webPenetration;
-        bool serverPenetration;
-        bool scadaPenetration;
-        bool blockchainPenetration;
-        bool contractPenetration;
+    function getVulnerability() external view returns(Vulnerability memory) {
+        return vulnerabilities[msg.sender];
     }
-     */
 
     modifier isDDosExistsByUser(address _user) {
         require(ddoses[_user].id == 0, "Ddos already saved for this user");
