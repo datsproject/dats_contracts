@@ -81,6 +81,18 @@ contract DatsContract{
         ddosUsers.push(msg.sender);
     }
 
+    function updateDDos(bool _isApprove, uint8 _trafficScale) external {
+        DDos memory ddos = ddoses[msg.sender];
+        ddos.isApprove = _isApprove;
+        ddos.trafficScale = _trafficScale;
+
+        ddoses[msg.sender] = ddos;
+    }
+
+    function deleteDDos() external {
+        delete(ddoses[msg.sender]);
+    }
+
     function getDDos() external view returns (DDos memory) {
         return ddoses[msg.sender];
     }
