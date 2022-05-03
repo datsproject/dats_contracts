@@ -245,13 +245,20 @@ contract DatsContract{
         return blockchainUsers.length;
     }
 
+    // ####################### MODIFIERS ####################################
+
     modifier isDDosExistsByUser(address _user) {
-        require(ddoses[_user].id == 0, "Ddos already saved for this user");
+        require(ddoses[_user].id == 0, "Ddos already saved for this user.");
         _;
     }
 
     modifier isSuperComputerExistsByUser(address _user) {
-        require(supers[_user].id == 0, "SuperComputer already saved for this user");
+        require(supers[_user].id == 0, "SuperComputer already saved for this user.");
+        _;
+    }
+
+    modifier isCyberSecurityExistsByUser(address _user){
+        require(cybers[_user].id == 0, "CyberSecurity already saved for this user.");
         _;
     }
 
