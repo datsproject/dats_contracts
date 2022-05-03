@@ -212,6 +212,27 @@ contract DatsContract{
         return vulnerabilities[msg.sender];
     }
 
+    function getVulnerabilityCount() external view returns(uint256){
+        return vulnerabilityUsers.length;
+    }
+
+    function saveBlockchain(bool _approveAttackPrevention) external{
+        Blockchain memory blockchain = Blockchain({
+            id: blockchainUsers.length + 1,
+            approveAttackPrevention: _approveAttackPrevention
+        });
+
+        blockchains[msg.sender] = blockchain;
+        blockchainUsers.push(msg.sender);
+    }
+
+    function updateBlockchain(bool _approveAttackPrevention) external{
+        Blockchain memory blockchain = blockchains[msg.sender];
+        blockchain.approveAttackPrevention = _approveAttackPrevention;
+
+        blockchains[msg.sender] = blockchain;
+    }
+
     modifier isDDosExistsByUser(address _user) {
         require(ddoses[_user].id == 0, "Ddos already saved for this user");
         _;
