@@ -1,7 +1,7 @@
-// SPDX-License-Identifier: Unlicensed
-pragma solidity >=0.7.0 <0.9.0;
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.0 <0.9.0;
 
-contract DatsContract{
+contract DatsProject{
 
     /*
         DDos Service,
@@ -69,7 +69,7 @@ contract DatsContract{
     }
 
 
-    function saveDDos(bool _isApprove, uint8 _trafficScale) isDDosExistsByUser(msg.sender) external {
+    function saveDDos(bool _isApprove, uint8 _trafficScale) external {
 
         DDos memory ddos = DDos({
             id: ddosUsers.length + 1,
@@ -81,6 +81,7 @@ contract DatsContract{
         ddosUsers.push(msg.sender);
     }
 
+    /*
     function updateDDos(bool _isApprove, uint8 _trafficScale) external {
         DDos memory ddos = ddoses[msg.sender];
         ddos.isApprove = _isApprove;
@@ -88,6 +89,7 @@ contract DatsContract{
 
         ddoses[msg.sender] = ddos;
     }
+    */
 
     function deleteDDos() external {
         delete(ddoses[msg.sender]);
@@ -101,11 +103,11 @@ contract DatsContract{
         return ddoses[_user];
     }
 
-    function getDdosCount() external view returns(uint256) {
+    function getDDosCount() external view returns(uint256) {
         return ddosUsers.length;
     }
 
-    function saveSuperComputer(bool _isApprove, uint8 _cpuValue) isSuperComputerExistsByUser(msg.sender) external {
+    function saveSuperComputer(bool _isApprove, uint8 _cpuValue) external {
         SuperComputer memory superComputer = SuperComputer({
             id: superUsers.length + 1,
             isApprove: _isApprove,
@@ -116,6 +118,7 @@ contract DatsContract{
         superUsers.push(msg.sender);
     }
 
+    /*
     function updateSuperComputer(bool _isApprove, uint8 _cpuValue) external {
         SuperComputer memory superComputer = supers[msg.sender];
         superComputer.isApprove = _isApprove;
@@ -123,6 +126,7 @@ contract DatsContract{
 
         supers[msg.sender] = superComputer;
     }
+    */
 
     function deleteSuperComputer() external {
         delete(supers[msg.sender]);
@@ -140,7 +144,14 @@ contract DatsContract{
         return superUsers.length;
     }
     
-    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) isCyberSecurityExistsByUser(msg.sender) external{
+    function saveCyberSecurity(
+                bool _isApprove, 
+                bool _webSecurity, 
+                bool _serverSecurity, 
+                bool _ransomwareResearch, 
+                bool _malwareResearch) 
+            external{
+
         CyberSecurity memory cyberSecurity = CyberSecurity({
             id: cyberUsers.length + 1,
             isApprove: _isApprove,
@@ -154,7 +165,15 @@ contract DatsContract{
         cyberUsers.push(msg.sender);
     }
 
-    function updateCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external{
+    /*
+    function updateCyberSecurity(
+                bool _isApprove, 
+                bool _webSecurity, 
+                bool _serverSecurity, 
+                bool _ransomwareResearch, 
+                bool _malwareResearch
+            ) external{
+
         CyberSecurity memory cyberSecurity = cybers[msg.sender];
         cyberSecurity.isApprove = _isApprove;
         cyberSecurity.webSecurity = _webSecurity;
@@ -164,6 +183,7 @@ contract DatsContract{
 
         cybers[msg.sender] = cyberSecurity;
     }
+    */
 
     function deleteCyberSecurity() external{
         delete(cybers[msg.sender]);
@@ -177,7 +197,15 @@ contract DatsContract{
         return cyberUsers.length;
     }
 
-    function saveVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) isVulnerabilityExistsByUser(msg.sender) external{
+    function saveVulnerability(
+                bool _isApprove, 
+                bool _webPenetration, 
+                bool _serverPenetration, 
+                bool _scadaPenetration, 
+                bool _blockchainPenetration, 
+                bool _contractPenetration
+            ) external{
+
         Vulnerability memory vulnerability = Vulnerability({
             id: vulnerabilityUsers.length + 1,
             isApprove: _isApprove,
@@ -192,6 +220,7 @@ contract DatsContract{
         vulnerabilityUsers.push(msg.sender);
     }
 
+    /*
     function updateVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) external{
         Vulnerability memory vulnerability = vulnerabilities[msg.sender];
         vulnerability.isApprove = _isApprove;
@@ -203,6 +232,7 @@ contract DatsContract{
 
         vulnerabilities[msg.sender] = vulnerability;
     }
+    */
 
     function deleteVulnerability() external {
         delete(vulnerabilities[msg.sender]);
@@ -216,7 +246,7 @@ contract DatsContract{
         return vulnerabilityUsers.length;
     }
 
-    function saveBlockchain(bool _approveAttackPrevention) isBlockchainExistsByUser(msg.sender) external{
+    function saveBlockchain(bool _approveAttackPrevention) external{
         Blockchain memory blockchain = Blockchain({
             id: blockchainUsers.length + 1,
             approveAttackPrevention: _approveAttackPrevention
@@ -226,12 +256,13 @@ contract DatsContract{
         blockchainUsers.push(msg.sender);
     }
 
+    /*
     function updateBlockchain(bool _approveAttackPrevention) external{
         Blockchain memory blockchain = blockchains[msg.sender];
         blockchain.approveAttackPrevention = _approveAttackPrevention;
 
         blockchains[msg.sender] = blockchain;
-    }
+    }*/
 
     function deleteBlockchain() external{
         delete(blockchains[msg.sender]);
@@ -246,7 +277,7 @@ contract DatsContract{
     }
 
     // ####################### MODIFIERS ####################################
-
+    /*
     modifier isDDosExistsByUser(address _user){
         require(ddoses[_user].id == 0, "Ddos already saved for this user.");
         _;
@@ -271,5 +302,6 @@ contract DatsContract{
         require(blockchains[_user].id == 0, "Blockchain already saved for this user.");
         _;
     }
+    */
 
 }
