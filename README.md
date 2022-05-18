@@ -1,6 +1,6 @@
 # Node Kurulumu
 
-Bu videodaki uygulamayı geliştirmek için öncelkile bilgisayarımızda [Node.js](https://nodejs.org/en/) bulunmalı. Bilgisayarınızda kurulu olup olmadığını, terminalinize aşağıdaki komutu yazarak kontrol edebilirsiniz. Hardhat, Node versiyonunuzun ```16.0```'dan yüksek olması halinde çalışacaktır. Aksi halde güncelleme yapmanız gerekmektedir.
+Bu uygulamayı geliştirmek için öncelkile bilgisayarımızda [Node.js](https://nodejs.org/en/) bulunmalı. Bilgisayarınızda kurulu olup olmadığını, terminalinize aşağıdaki komutu yazarak kontrol edebilirsiniz. Hardhat, Node versiyonunuzun ```16.0```'dan yüksek olması halinde çalışacaktır. Aksi halde güncelleme yapmanız gerekmektedir.
 
 ```bash
     node -v
@@ -129,11 +129,3 @@ Eğer bilgisayarınızda Node.js yüklü değilse [bu](https://nodejs.org/en/dow
 ```
 
 Not: [Ethers Playground](https://playground.ethers.org/)
-
-<br/>
-
-[Video İçeriği](https://www.youtube.com/watch?v=0stIYoi3KG8&list=PLby2HXktGwN4Cof_6a8YwlMrboX8-hs73&index=19&t=3018s)
-
-[Proje Dizini](./lock-project)
-
-[Boilerplate](./boilerplate)
