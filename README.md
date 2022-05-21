@@ -1,7 +1,5 @@
 # Node Kurulumu
 
-Bu uygulamayı geliştirmek için öncelkile bilgisayarımızda [Node.js](https://nodejs.org/en/) bulunmalı. Bilgisayarınızda kurulu olup olmadığını, terminalinize aşağıdaki komutu yazarak kontrol edebilirsiniz. Hardhat, Node versiyonunuzun ```16.0```'dan yüksek olması halinde çalışacaktır. Aksi halde güncelleme yapmanız gerekmektedir.
-
 ```bash
     node -v
 ```
