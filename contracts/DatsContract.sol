@@ -1,26 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.2;
 
-/*
-   1 - Native mint contractımızı nasıl geliştirebiliriz? Hangi tanımları ve fonksiyonları içermelidir?
-   2 - Uygulama contract larımızın önüne bir proxy contract yazıp client ları sadece proxy contract ile interact edeceğiz. Bu noktada
-   tavsiyeleriniz var mıdır? (UUPS Proxy Pattern kullanacağız.)
-   3 - Contract yazarken güvenlik tedbirleri olarak nelere dikkat etmeliyiz ?
-   4 - contract oluşumlarında public seed ve private sale satışları için ayrı ayrı mantık (Logic) oluşturmak zorunda mıyız ?
-   5 - Contractlar ile uygulama kullanıcılarımıza hakediş dağıtmayı düşünüyoruz, örneğin uygulamada belirli sürede istediğimiz hareketleri 
-   yapan kullanacılara DATS Token dağıtacağız,bunu nasıl bir temel üzerine oturtmalıyız.Hakediş mantığı contractlar ile çözülebilir mi ?
-   6 - Veri depolamak için (persistent yani geçici olmayan) EVM kullanılabilir mi ve ne kadar güvenlidir yoksa klasik veritabanı mantığı ile mi ilerlenmelidir ?
-   7 - Kullanıcı ayarını kaydeden veya getirmek için kullandığımız contractlarda gas fee almamız ne kadar doğru ve eğer doğru ise işlem başına alınacak 
-   gas fee belirleme operasyonu nasıl yapılabilir? Buradaki gas fee lerin kendi tokenimiz cinsinden olmasını nasıl sağlarız?
-   8 - Metamask a Dats C-Chain i eklenirken chainid girildiğinde token sembol ü olarak DATS token ı 
-   mecburi yapmak istiyoruz. Bunun için evm oluşturma aşamasında yapılması gereken bir işlem var mıdır? (Dats Chain Gas Token tanımlama işlemi)
-   9 - Dats network üzerinde yapılan işlemler için alınacak fee leri bir cüzdan da toplanacak şekilde 
-   ayarladık. Burda Avax networkde olduğu gibi hepsini veya bir kısmını yakmalı mıyız, yoksa cüzdandaki toplamamız uygun mudur? Konu hakkında yaklaşımınız nedir?
-   10 - Bir subnet i validate eden asgari node sayısı ne olmalıdır?
- */
-
-
-
 contract DatsContract{
 
     struct User {
