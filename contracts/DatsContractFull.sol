@@ -61,6 +61,12 @@ contract DatsContract{
     mapping(address => Blockchain) public blockchains;
     address[] public blockchainLength;
 
+    event DDosSaved(uint256 _id, address indexed _consumer, DDos _data);
+    event SuperComputerSaved(uint256 _id, address indexed _consumer, SuperComputer _data);
+    event CyberSecuritySaved(uint256 _id, address indexed _consumer, CyberSecurity _data);
+    event VulnerabilitySaved(uint256 _id, address indexed _consumer, Vulnerability _data);
+    event BlockchainSaved(uint256 _id, address indexed _consumer, Blockchain _data);
+
     constructor(){
         owner = msg.sender;
     }
@@ -78,17 +84,16 @@ contract DatsContract{
 
     function saveDDos(bool _isApprove, uint8 _trafficScale) external {
 
-        DDos memory ddos = DDos({
-            id: ddosLength.length + 1,
-            user: msg.sender,
-            isApprove: _isApprove,
-            trafficScale: _trafficScale
-        });
+        uint256 newId = ddosLength.length + 1;
+
+        DDos memory ddos = DDos(newId, msg.sender, _isApprove, _trafficScale);
 
         if(ddoses[msg.sender].id == 0)
             ddosLength.push(msg.sender);
 
         ddoses[msg.sender] = ddos;  
+
+        emit DDosSaved(newId, msg.sender, ddos);
         
     }
 
@@ -116,17 +121,17 @@ contract DatsContract{
     }
 
     function saveSuperComputer(bool _isApprove, uint8 _cpuValue) external {
-        SuperComputer memory superComputer = SuperComputer({
-            id: superLength.length + 1,
-            user: msg.sender,
-            isApprove: _isApprove,
-            cpuValue: _cpuValue
-        });
+        
+        uint256 newId = superLength.length + 1;
+        
+        SuperComputer memory superComputer = SuperComputer(newId, msg.sender, _isApprove, _cpuValue);
 
         if(supers[msg.sender].id == 0)
             superLength.push(msg.sender);
 
         supers[msg.sender] = superComputer;
+
+        emit SuperComputerSaved(newId, msg.sender, superComputer);
         
     }
 
@@ -155,28 +160,18 @@ contract DatsContract{
         return allCybers;
     }
     
-    function saveCyberSecurity(
-                bool _isApprove, 
-                bool _webSecurity, 
-                bool _serverSecurity, 
-                bool _ransomwareResearch, 
-                bool _malwareResearch) 
-            external{
+    function saveCyberSecurity(bool _isApprove, bool _webSecurity, bool _serverSecurity, bool _ransomwareResearch, bool _malwareResearch) external{
 
-        CyberSecurity memory cyberSecurity = CyberSecurity({
-            id: cyberLength.length + 1,
-            user: msg.sender,
-            isApprove: _isApprove,
-            webSecurity: _webSecurity,
-            serverSecurity: _serverSecurity,
-            ransomwareResearch: _ransomwareResearch,
-            malwareResearch: _malwareResearch
-        });
+        uint256 newId = cyberLength.length + 1;
+
+        CyberSecurity memory cyberSecurity = CyberSecurity(newId, msg.sender, _isApprove, _webSecurity, _serverSecurity, _ransomwareResearch, _malwareResearch);
 
         if(cybers[msg.sender].id == 0)
             cyberLength.push(msg.sender);
         
         cybers[msg.sender] = cyberSecurity;
+
+        emit CyberSecuritySaved(newId, msg.sender, cyberSecurity);
         
     }
 
@@ -187,11 +182,6 @@ contract DatsContract{
     function getCyberSecurityCount() external view returns(uint256){
         return cyberLength.length;
     }
-
-
-
-
-
 
 
     function getAllUserVulnerabilitySettings() public view returns(Vulnerability[] memory){
@@ -205,30 +195,18 @@ contract DatsContract{
         return allVulnerability;
     }
 
-    function saveVulnerability(
-                bool _isApprove, 
-                bool _webPenetration, 
-                bool _serverPenetration, 
-                bool _scadaPenetration, 
-                bool _blockchainPenetration, 
-                bool _contractPenetration
-            ) external{
-
-        Vulnerability memory vulnerability = Vulnerability({
-            id: vulnerabilityLength.length + 1,
-            user: msg.sender,
-            isApprove: _isApprove,
-            webPenetration: _webPenetration,
-            serverPenetration: _serverPenetration,
-            scadaPenetration: _scadaPenetration,
-            blockchainPenetration: _blockchainPenetration,
-            contractPenetration: _contractPenetration
-        });
+    function saveVulnerability(bool _isApprove, bool _webPenetration, bool _serverPenetration, bool _scadaPenetration, bool _blockchainPenetration, bool _contractPenetration) external{
+        
+        uint256 newId = vulnerabilityLength.length + 1;
+        
+        Vulnerability memory vulnerability = Vulnerability(newId, msg.sender, _isApprove, _webPenetration, _serverPenetration, _scadaPenetration, _blockchainPenetration, _contractPenetration);
 
         if(vulnerabilities[msg.sender].id == 0)
             vulnerabilityLength.push(msg.sender);
         
         vulnerabilities[msg.sender] = vulnerability;
+
+        emit VulnerabilitySaved(newId, msg.sender, vulnerability);
         
     }
 
@@ -239,7 +217,6 @@ contract DatsContract{
     function getVulnerabilityCount() external view returns(uint256){
         return vulnerabilityLength.length;
     }
-
 
 
 
@@ -256,16 +233,17 @@ contract DatsContract{
     }
 
     function saveBlockchain(bool _approveAttackPrevention) external{
-        Blockchain memory blockchain = Blockchain({
-            id: blockchainLength.length + 1,
-            user: msg.sender,
-            approveAttackPrevention: _approveAttackPrevention
-        });
+        
+        uint256 newId = blockchainLength.length + 1;
+        
+        Blockchain memory blockchain = Blockchain(newId, msg.sender, _approveAttackPrevention);
 
         if(blockchains[msg.sender].id == 0)
             blockchainLength.push(msg.sender); 
 
         blockchains[msg.sender] = blockchain;
+
+        emit BlockchainSaved(newId, msg.sender, blockchain);
         
     }
 
