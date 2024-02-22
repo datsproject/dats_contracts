@@ -67,8 +67,8 @@ contract DatsContract{
     event VulnerabilitySaved(uint256 _id, address indexed _consumer, Vulnerability _data);
     event BlockchainSaved(uint256 _id, address indexed _consumer, Blockchain _data);
 
-    constructor(){
-        owner = msg.sender;
+    constructor(address _owner){
+        owner = _owner;
     }
 
     function getAllUserDDosSettings() public view returns(DDos[] memory){
@@ -235,7 +235,7 @@ contract DatsContract{
     function saveBlockchain(bool _approveAttackPrevention) external{
         
         uint256 newId = blockchainLength.length + 1;
-        
+
         Blockchain memory blockchain = Blockchain(newId, msg.sender, _approveAttackPrevention);
 
         if(blockchains[msg.sender].id == 0)
