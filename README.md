@@ -1,10 +1,13 @@
+# Dats Desktop Contracts
+...
+
 # Node Kurulumu
 
 ```bash
     node -v
 ```
 
-Eğer bilgisayarınızda Node.js yüklü değilse [bu](https://nodejs.org/en/download/) bu adresten size uygun versiyonu yükleyebilirsiniz veya Hardhat'in [önerdiği](https://hardhat.org/tutorial/setting-up-the-environment.html) kurulum ve güncelleme yöntemlerini inceleyebilirsiniz.
+Eğer bilgisayarınızda Node.js yüklü değilse [bu](https://nodejs.org/en/download/) bu adresten size uygun versiyonu yükleyebilirsiniz veya Hardhat'in [önerdiği](https://hardhat.org/tutorial/setting-up-the-environment.html) kurulum ve güncelleme yöntemlerini inceleyebilirsiniz. 
 
 <br/>
 
