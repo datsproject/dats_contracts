@@ -1,132 +1,152 @@
 # Dats Desktop Contracts
-...
 
-# Node Kurulumu
+Smart contracts for the Dats Desktop project, built with Solidity and Hardhat. This repository contains on-chain logic for user resource preferences and a wrapped native token (DATS) with mint/burn and native-coin swap support.
+
+---
+
+## Contracts Overview
+
+The `contracts/` directory contains the following Solidity contracts:
+
+| Contract | Description |
+|----------|-------------|
+| **DatsContract.sol** | Lightweight contract that stores **DDoS** preferences per user. Users can save approval status and traffic scale; the owner can retrieve all users’ DDoS settings. |
+| **DatsContractFull.sol** | Full-featured contract that stores multiple resource types per user: **DDoS**, **SuperComputer** (CPU), **CyberSecurity** (web/server security, ransomware/malware research), **Vulnerability** (web/server/SCADA/blockchain/contract penetration), **Blockchain** (attack prevention), and **GPU**. Each resource has save/get/count functions and owner-only “get all users” views; state changes emit events. |
+| **DatsNativeMinter.sol** | ERC20 token **DATS** with 18 decimals. Owner can mint and burn. Users can **deposit** native gas coins to receive DATS and **mintdraw** to burn DATS and receive native coins (via the chain’s Native Minter precompile). |
+| **IAllowList.sol** | Interface for an allow-list: set admin, set enabled, set none, and read status for an address. |
+| **INativeMinter.sol** | Interface extending `IAllowList` that adds `mintNativeCoin(addr, amount)` for the native minter precompile. |
+
+- **DatsContract** vs **DatsContractFull**: Use `DatsContract` when only DDoS settings are needed; use `DatsContractFull` when SuperComputer, CyberSecurity, Vulnerability, Blockchain, and GPU settings are also required.
+- **DatsNativeMinter** is intended for chains that provide a Native Minter precompile (e.g. Avalanche C-Chain style); the precompile address is set inside the contract.
+
+---
+
+# Node.js Setup
 
 ```bash
-    node -v
+node -v
 ```
 
-Eğer bilgisayarınızda Node.js yüklü değilse [bu](https://nodejs.org/en/download/) bu adresten size uygun versiyonu yükleyebilirsiniz veya Hardhat'in [önerdiği](https://hardhat.org/tutorial/setting-up-the-environment.html) kurulum ve güncelleme yöntemlerini inceleyebilirsiniz. 
+If Node.js is not installed on your machine, you can download a suitable version from [here](https://nodejs.org/en/download/), or follow the [Hardhat-recommended](https://hardhat.org/tutorial/setting-up-the-environment.html) setup and update instructions.
 
 <br/>
 
-# Hardhat Çalışma Ortamının Kurulumu
+# Hardhat Development Environment Setup
 
-* [Hardhat Dökümanyasyonu](https://hardhat.org/getting-started/)
-* [Ethers Dökümantasyonu](https://docs.ethers.io/v5/)
-* [Waffle Dökümantasyonu](https://ethereum-waffle.readthedocs.io/en/latest/index.html)
+* [Hardhat Documentation](https://hardhat.org/getting-started/)
+* [Ethers Documentation](https://docs.ethers.io/v5/)
+* [Waffle Documentation](https://ethereum-waffle.readthedocs.io/en/latest/index.html)
 
-### Node Projesinin Başlatılması
+### Initialize Node Project
 ```bash
-    npm init --yes
+npm init --yes
 ```
 
-### Hardhat'in İndirilmesi
+### Install Hardhat
 ```bash
-    npm install --save-dev hardhat
-```
-### Hardhat'in Çalıştırılarak Çalışma Ortamın Yapısının Seçilmesi
-```bash
-    npx hardhat
+npm install --save-dev hardhat
 ```
 
-### Gerekli Eklentilerin Kurulumu ([Ethers.js](https://docs.ethers.io/v5/), [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html))
+### Run Hardhat and Choose Project Structure
 ```bash
-    npm install --save-dev @nomiclabs/hardhat-ethers ethers @nomiclabs/hardhat-waffle ethereum-waffle chai
-
+npx hardhat
 ```
 
-### ```hardhat.config.js``` Dosyasının Hazırlanması
+### Install Required Plugins ([Ethers.js](https://docs.ethers.io/v5/), [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html))
+```bash
+npm install --save-dev @nomiclabs/hardhat-ethers ethers @nomiclabs/hardhat-waffle ethereum-waffle chai
+```
+
+### Prepare `hardhat.config.js`
 ```javascript
-    //require("@nomiclabs/hardhat-ethers");
-    require("@nomiclabs/hardhat-waffle");
+// require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-waffle");
 
-    const PRIVATE_KEY = "PRIVATE_KEY";
+const PRIVATE_KEY = "PRIVATE_KEY";
 
-
-    module.exports = {
-        solidity: "0.8.2",
-        networks: {
-          mainnet: {
-            url: `https://api.avax.network/ext/bc/C/rpc`,
-              accounts: [`${PRIVATE_KEY}`]
-          },
-          fuji: {
-            url: `https://api.avax-test.network/ext/bc/C/rpc`,
-              accounts: [`${PRIVATE_KEY}`]
-          }
-        }
-    };
+module.exports = {
+  solidity: "0.8.2",
+  networks: {
+    mainnet: {
+      url: `https://api.avax.network/ext/bc/C/rpc`,
+      accounts: [`${PRIVATE_KEY}`]
+    },
+    fuji: {
+      url: `https://api.avax-test.network/ext/bc/C/rpc`,
+      accounts: [`${PRIVATE_KEY}`]
+    }
+  }
+};
 ```
 
-### Dosya Dizinleri
+### Directory Structure
 ```
-    boilerplate/
-    ├── hardhat.config.js
-    ├── package.json
-    ├── package-lock.json
-    ├── node_modules
-    ├──── contracts/
-    ├──── test/
-    └──── scripts/
-
+boilerplate/
+├── hardhat.config.js
+├── package.json
+├── package-lock.json
+├── node_modules
+├── contracts/
+├── test/
+└── scripts/
 ```
 
-### Compile İşlemi
+### Compile
 ```bash
-    npx hardhat compile
+npx hardhat compile
 ```
 
-### OpenZeppelin Kontratlarını Kullanmak için
+### Using OpenZeppelin Contracts
 ```bash
-    npm install @openzeppelin/contracts
+npm install @openzeppelin/contracts
 ```
 
-### Testlerin Çalıştırılması
+### Run Tests
 ```bash
-    npx hardhat test
+npx hardhat test
 ```
 
-### Kontratların Deploy Edilmesi
+### Deploy Contracts
 ```bash
-    npx hardhat run <deploy-scrpit-path>
+npx hardhat run <deploy-script-path>
 
-    npx hardhat run <deploy-scrpit-path> --network <network-name>
+npx hardhat run <deploy-script-path> --network <network-name>
 
-    npx hardhat run scripts/deploy.js --network fuji
+npx hardhat run scripts/deploy.js --network fuji
 ```
+
 <br/>
 
-# Yardımcı Fonksiyonlar
+# Helper Functions
+
 ### Chai Helpers
 
-``` javascript
-    await expect(token.transfer(walletTo.address, 1007)).to.be.reverted;
+```javascript
+await expect(token.transfer(walletTo.address, 1007)).to.be.reverted;
 
-    expect('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B').to.be.properAddress;
-    expect(token).to.not.be.undefined;
+expect('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B').to.be.properAddress;
+expect(token).to.not.be.undefined;
 
-    expect(token.balanceOf("0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B")).to.be.equal(0);
-    
-    expect(token.balanceOf("0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B")).to.be.greaterThan(0);
+expect(token.balanceOf("0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B")).to.be.equal(0);
+
+expect(token.balanceOf("0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B")).to.be.greaterThan(0);
 ```
 
 ### Ethers Helpers
 
-``` javascript
-    await ethers.getContractFactory("Token");
-    await ethers.getSigners();
-    ethers.utils.parseEther("100");
-    ethers.utils.parseUnits("100", 18);
-    ethers.utils.formatEther("1000000000000000000");
-    ethers.utils.formatUnits("100", 2);
-    ethers.constants.MaxUint256;
+```javascript
+await ethers.getContractFactory("Token");
+await ethers.getSigners();
+ethers.utils.parseEther("100");
+ethers.utils.parseUnits("100", 18);
+ethers.utils.formatEther("1000000000000000000");
+ethers.utils.formatUnits("100", 2);
+ethers.constants.MaxUint256;
 
-    const provider = ethers.provider;
-    block_number = await provider.getBlockNumber();
-    await provider.getBlock(block_number)
-    block_timestamp = block.timestamp;
+const provider = ethers.provider;
+block_number = await provider.getBlockNumber();
+await provider.getBlock(block_number);
+block_timestamp = block.timestamp;
 ```
 
-Not: [Ethers Playground](https://playground.ethers.org/)
+Note: [Ethers Playground](https://playground.ethers.org/)
