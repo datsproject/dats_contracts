@@ -44,6 +44,12 @@ contract DatsContract{
         bool approveAttackPrevention;
     }
 
+    struct GPU {
+        uint256 id;
+        address user;
+        bool isApprove;
+    }
+
     address public owner;
 
     mapping(address => DDos) public ddoses;
@@ -61,11 +67,15 @@ contract DatsContract{
     mapping(address => Blockchain) public blockchains;
     address[] public blockchainLength;
 
+    mapping(address => GPU) public gpus;
+    address[] public gpuLength;
+
     event DDosSaved(uint256 _id, address indexed _consumer, DDos _data);
     event SuperComputerSaved(uint256 _id, address indexed _consumer, SuperComputer _data);
     event CyberSecuritySaved(uint256 _id, address indexed _consumer, CyberSecurity _data);
     event VulnerabilitySaved(uint256 _id, address indexed _consumer, Vulnerability _data);
     event BlockchainSaved(uint256 _id, address indexed _consumer, Blockchain _data);
+    event GPUSaved(uint256 _id, address indexed _consumer, GPU _data);
 
     constructor(address _owner){
         owner = _owner;
@@ -253,6 +263,43 @@ contract DatsContract{
 
     function getBlockchainCount() external view returns(uint256){
         return blockchainLength.length;
+    }
+
+
+
+
+    function getAllUserGPUSettings() public view returns(GPU[] memory){
+        require(owner == msg.sender, "You are not authorized.");
+        GPU[] memory allGPUs = new GPU[](gpuLength.length);
+
+        for(uint i = 0; i < gpuLength.length; i++){
+            allGPUs[i] = gpus[gpuLength[i]];
+        }
+
+        return allGPUs;
+    }
+
+    function saveGPU(bool _isApprove) external{
+        
+        uint256 newId = gpuLength.length + 1;
+
+        GPU memory gpu = GPU(newId, msg.sender, _isApprove);
+
+        if(gpus[msg.sender].id == 0)
+            gpuLength.push(msg.sender); 
+
+        gpus[msg.sender] = gpu;
+
+        emit GPUSaved(newId, msg.sender, gpu);
+        
+    }
+
+    function getGPU() external view returns(GPU memory){
+        return gpus[msg.sender];
+    }
+
+    function getGPUCount() external view returns(uint256){
+        return gpuLength.length;
     }
 
 }
